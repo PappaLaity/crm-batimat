@@ -7,14 +7,13 @@
       </div>
     </div>
   </div>
-  <h4 class="text-start">Update Provider</h4>
+  <h4 class="text-start">Add Provider</h4>
   <div class="card mb-2">
     <div class="card-body">
-      <form @submit.prevent="updateProvider" class="text-start">
+      <form @submit.prevent="createProvider" class="text-start">
         <div class="row">
           <div class="col-6">
             <div class="form-group">
-              <input type="text" v-model="provider.id" hidden>
               <label for="name">Name</label>
               <input type="text" class="form-control" id="name" v-model="provider.nom"
                      placeholder="Name">
@@ -25,6 +24,7 @@
               <label for="email">Email address</label>
               <input type="email" class="form-control" id="email" v-model="provider.mail"
                      placeholder="Email">
+              <!--          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>-->
             </div>
           </div>
         </div>
@@ -38,7 +38,12 @@
           </div>
         </div>
         <div class="mt-4">
-          <button type="submit" class="btn btn-secondary">Update Provider</button>
+          <button type="submit" class="btn btn-secondary">Add Provider</button>
+        </div>
+        <div class="row" v-if="this.errors.length>0">
+      <span class="text-danger" v-for="(error,index) in errors" :key="index">
+        {{ error }}
+      </span>
         </div>
       </form>
 
@@ -49,30 +54,23 @@
 import {providerService} from "@/_services";
 
 export default {
-  name: 'EditProvider',
-  props: ['id'],
   data() {
     return {
       provider: {
-        id: "",
         nom: "",
         mail: "",
         phone: "",
+        typeStructure: "provider"
       },
       errors: []
     }
   },
   methods: {
-    updateProvider() {
-      providerService.updateProvider(this.provider)
+    createProvider() {
+      providerService.addProviders(this.provider)
           .then(res => this.$router.push('/providers'))
           .catch(err => console.log(err))
     }
-  },
-  mounted() {
-    providerService.getProvider(this.id)
-        .then(res => this.provider = res.data.data)
-        .catch(err => console.log(err))
   }
 }
 </script>

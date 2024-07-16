@@ -1,3 +1,6 @@
 export * from './account.service'
 export * from './users.services'
 export * from './provider.service'
+export * from './customers.services'
+export * from './products.services'
+export * from './stocks.services'

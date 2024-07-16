@@ -4,7 +4,8 @@
     <h2 class="h2">Providers</h2>
     <div class="btn-toolbar mb-2 mb-md-0">
       <div class="btn-group me-2">
-        <!--        <router-link type="button" class="btn btn-sm btn-outline-secondary" to="/users/add">Add Provider</router-link>-->
+        <router-link type="button" class="btn btn-sm btn-outline-secondary" to="/providers/add">Add Provider
+        </router-link>
       </div>
     </div>
   </div>
@@ -25,7 +26,7 @@
         <td>{{ provider.mail }}</td>
         <td>{{ provider.phone }}</td>
         <td>
-          <button>Edit</button>
+          <button @click="editProvider(provider.id)" class="btn btn-outline-info">Edit</button>
         </td>
       </tr>
       </tbody>
@@ -43,17 +44,20 @@ export default {
     }
   },
   methods: {
-    handleProviders() {
+    loadProviders() {
       providerService.getProviders()
           .then(res => {
             this.providers = res.data.data
           }).catch(err => {
         console.log(err)
       })
+    },
+    editProvider(uid) {
+      this.$router.push({name: "editProviders", params: {id: uid}})
     }
   },
   mounted() {
-    this.handleProviders()
+    this.loadProviders()
   }
 }
 </script>

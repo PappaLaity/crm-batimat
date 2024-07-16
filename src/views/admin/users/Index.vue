@@ -49,7 +49,7 @@ export default {
     }
   },
   methods: {
-    handleUsers() {
+    loadUsers() {
       userService.getAllUsers()
           .then(res => {
             // console.log(res.data.data)
@@ -64,7 +64,7 @@ export default {
     }
   },
   mounted() {
-    this.handleUsers()
+    this.loadUsers()
     this.logged = accountService.getUserId()
     // console.log(this.logged)
   }

@@ -80,6 +80,8 @@ export default {
           .then(res => {
             accountService.saveToken(res.data.data.token)
             accountService.saveUserId(res.data.data.user.id)
+            accountService.saveCompanyId(res.data.data.user.structure_id)
+            accountService.saveRole(res.data.data.user.role)
             this.$router.push('/')
           })
           .catch(err => {

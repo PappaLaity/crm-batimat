@@ -112,7 +112,7 @@ export default {
     }
   },
   methods: {
-    handleStructure() {
+    loadStructure() {
       providerService.getAllStructures()
           .then(res => this.structures = res.data.data)
           .catch(err => console.log(err))
@@ -135,7 +135,7 @@ export default {
     }
   },
   mounted() {
-    this.handleStructure()
+    this.loadStructure()
   }
 }
 </script>

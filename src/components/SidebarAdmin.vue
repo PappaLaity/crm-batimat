@@ -19,7 +19,7 @@
             </router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link d-flex align-items-center gap-2"
+            <router-link v-if="role!=='manager'" class="nav-link d-flex align-items-center gap-2"
                          :class="[currentRoute.path.includes('/users')?'active':'']" to="/users">
               <svg class="bi">
                 <use xlink:href="#graph-up"/>
@@ -28,7 +28,7 @@
             </router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link d-flex align-items-center gap-2"
+            <router-link v-if="role!=='provider'" class="nav-link d-flex align-items-center gap-2"
                          :class="[currentRoute.path.includes('/providers')?'active':'']" to="/providers">
               <svg class="bi">
                 <use xlink:href="#puzzle"/>
@@ -46,7 +46,7 @@
             </router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link d-flex align-items-center gap-2"
+            <router-link v-if="role!=='provider'" class="nav-link d-flex align-items-center gap-2"
                          :class="[currentRoute.path.includes('/orders')?'active':'']" to="/orders">
               <svg class="bi">
                 <use xlink:href="#file-earmark"/>
@@ -55,7 +55,16 @@
             </router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link d-flex align-items-center gap-2"
+            <router-link v-if="role!=='provider'" class="nav-link d-flex align-items-center gap-2"
+                         :class="[currentRoute.path.includes('/stocks')?'active':'']" to="/stocks">
+              <svg class="bi">
+                <use xlink:href="#file-earmark"/>
+              </svg>
+              Stocks
+            </router-link>
+          </li>
+          <li class="nav-item">
+            <router-link v-if="role!=='provider'" class="nav-link d-flex align-items-center gap-2"
                          :class="[currentRoute.path.includes('/customers')?'active':'']" to="/customers">
               <svg class="bi">
                 <use xlink:href="#people"/>
@@ -64,7 +73,7 @@
             </router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link d-flex align-items-center gap-2"
+            <router-link v-if="role!=='provider'" class="nav-link d-flex align-items-center gap-2"
                          :class="[currentRoute.path.includes('/sales')?'active':'']" to="/sales">
               <svg class="bi">
                 <use xlink:href="#puzzle"/>
@@ -108,6 +117,7 @@ export default {
   name: 'SidebarView',
   setup() {
     const route = useRoute();
+    const role = accountService.getRole()
 
     const logout = () => {
       accountService.logout()
@@ -116,7 +126,9 @@ export default {
 
     return {
       currentRoute: route,
-      logout: logout
+      role: role,
+      logout: logout,
+
     };
   },
 }

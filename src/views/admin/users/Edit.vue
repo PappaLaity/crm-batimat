@@ -94,12 +94,12 @@ export default {
     }
   },
   methods: {
-    handleStructure() {
+    loadStructure() {
       providerService.getAllStructures()
           .then(res => this.structures = res.data.data)
           .catch(err => console.log(err))
     },
-    handleUser() {
+    loadUser() {
       userService.getUser(this.id)
           .then(res => {
             this.user = res.data.data
@@ -113,8 +113,8 @@ export default {
     }
   },
   mounted() {
-    this.handleUser()
-    this.handleStructure()
+    this.loadUser()
+    this.loadStructure()
   }
 }
 </script>
