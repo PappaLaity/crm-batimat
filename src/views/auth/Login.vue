@@ -1,100 +1,48 @@
-<template>
-  <div class="container">
-    <div class="row justify-content-center mb-3">
-      <div class="col-md-8 col-lg-6 col-xl-5">
-        <div class="card overflow-hidden">
-          <div class="bg-primary-subtle">
-            <div class="row">
-              <div class="col-7">
-                <div class="text-primary p-2">
-                  <h5 class="text-primary">Batimat Group</h5>
-                </div>
-              </div>
-              <div class="col-5 align-self-end">
-              </div>
-            </div>
-          </div>
-          <div class="card-body pt-0">
-            <div class="p-3">
-              <form class="form-horizontal" @submit.prevent="login">
-                <div class="mb-3 text-start">
-                  <label for="username" class="form-label">
-                    Telephone <span class="text-danger">*</span>
-                  </label>
-                  <input name="phone" type="text" class="form-control" v-model="user.login"
-                         placeholder="2217XXXXXXXX" autocomplete="telephone" id="userlogin">
-
-                </div>
-                <div class="mb-3 text-start">
-                  <label class="form-label">Password <span class="text-danger">*</span></label>
-                  <div class="input-group auth-pass-inputgroup">
-                    <input type="password" name="password" class="form-control" id="userpassword"
-                           v-model="user.password"
-                           placeholder="*******" aria-label="Password">
-                  </div>
-
-                </div>
-                <div class="p-2 bg-light" v-if="error">
-                  <span class="text-danger">{{ error }}</span>
-                </div>
-
-
-                <div class="mt-4 d-grid">
-
-                  <button class="btn btn-primary waves-effect waves-light" type="submit">Log
-                    In
-                  </button>
-                </div>
-                <div class="mt-4 text-center">
-                  <!--                  <a href="#" class="text-muted"><i class="mdi mdi-lock me-1"></i>-->
-                  <!--                    Forgot your password?</a>-->
-
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</template>
-
-<script>
-
-import {accountService} from "@/_services";
-
-export default {
-  name: "LoginView",
-  data() {
-    return {
-      user: {
-        login: '',
-        password: ''
-      },
-      error: ""
-    }
-  },
-  methods: {
-    login() {
-      accountService.login(this.user)
-          .then(res => {
-            accountService.saveToken(res.data.data.token)
-            accountService.saveUserId(res.data.data.user.id)
-            accountService.saveCompanyId(res.data.data.user.structure_id)
-            accountService.saveRole(res.data.data.user.role)
-            this.$router.push('/')
-          })
-          .catch(err => {
-            // console.log(err)
-            this.error = err.response.data.message
-          })
-    }
-  }
-}
+<script setup>
 </script>
+<template>
+    <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+        <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+            <img class="mx-auto h-10 w-auto" src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=600"
+                alt="Your Company">
+            <h2 class="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">Sign in to your account</h2>
+        </div>
 
-<style scoped>
-.container {
-  margin-top: 50px;
-}
-</style>
+        <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+            <form class="space-y-6" action="#" method="POST">
+                <div>
+                    <label for="email" class="block text-sm/6 font-medium text-gray-900">Email address</label>
+                    <div class="mt-2">
+                        <input type="email" name="email" id="email" autocomplete="email" required
+                            class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+                    </div>
+                </div>
+
+                <div>
+                    <div class="flex items-center justify-between">
+                        <label for="password" class="block text-sm/6 font-medium text-gray-900">Password</label>
+                        <div class="text-sm">
+                            <a href="#" class="font-semibold text-indigo-600 hover:text-indigo-500">Forgot password?</a>
+                        </div>
+                    </div>
+                    <div class="mt-2">
+                        <input type="password" name="password" id="password" autocomplete="current-password" required
+                            class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+                    </div>
+                </div>
+
+                <div>
+                    <button type="submit"
+                        class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Sign
+                        in</button>
+                </div>
+            </form>
+
+            <p class="mt-10 text-center text-sm/6 text-gray-500">
+                Not a member?
+                <a href="#" class="font-semibold text-indigo-600 hover:text-indigo-500">Start a 14 day free trial</a>
+            </p>
+        </div>
+    </div>
+
+</template>
